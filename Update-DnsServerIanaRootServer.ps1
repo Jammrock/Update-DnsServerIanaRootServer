@@ -157,8 +157,8 @@ process {
             Write-Verbose "Looking for missing addresses."
             :nochange foreach ($rh in $rootH) {
                 # determine whether to test and update the root hint record
-                if ($IPv4Only.IsPresent -and $rh.Type -eq "A" -or
-                     $IPv6Only.IsPresent -and $rh.Type -eq "AAAA" -or
+                if (($IPv4Only.IsPresent -and $rh.Type -eq "A") -or
+                     ($IPv6Only.IsPresent -and $rh.Type -eq "AAAA") -or
                      (-NOT $IPv4Only.IsPresent -and -NOT $IPv6Only.IsPresent)) {
 
                     Write-Verbose "Processing:`n$($rh | Format-List | Out-String)"
@@ -206,9 +206,9 @@ process {
         } else {
             Write-Verbose "$name was not found locally."
             # process the local root servers against the IANA root servers
-            if ($IPv4Only.IsPresent -and $rh.Type -eq "A" -or
-                     $IPv6Only.IsPresent -and $rh.Type -eq "AAAA" -or
-                     (-NOT $IPv4Only.IsPresent -and -NOT $IPv6Only.IsPresent)) {
+            if ( ($IPv4Only.IsPresent -and $rh.Type -eq "A") -or
+                 ($IPv6Only.IsPresent -and $rh.Type -eq "AAAA") -or
+                 (-NOT $IPv4Only.IsPresent -and -NOT $IPv6Only.IsPresent)) {
                 
                 # add the missing records
                 foreach ($rh in $rootH) {
